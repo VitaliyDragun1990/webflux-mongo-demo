@@ -11,8 +11,8 @@
     </parent>
 
     <groupId>org.vdragun</groupId>
-    <artifactId>webflux-mongo-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>api</artifactId>
+    <version>0.0.1</version>
     <name>REST API with WebFlux and Mongo</name>
     <description>Demo project for Spring Boot using WebFlux and Mongo</description>
 
@@ -20,6 +20,7 @@
         <java.version>11</java.version>
         <modelmapper.version>2.3.9</modelmapper.version>
         <yavi.version>0.5.0</yavi.version>
+        <docker.image.prefix>webflux-mongo-demo</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -30,10 +31,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
         </dependency>
 
         <dependency>
@@ -83,6 +80,28 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <!-- This plugin is used to create a docker image and publish the image to docker hub-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
