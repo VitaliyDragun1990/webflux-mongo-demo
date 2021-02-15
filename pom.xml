@@ -18,6 +18,8 @@
 
     <properties>
         <java.version>11</java.version>
+        <modelmapper.version>2.3.9</modelmapper.version>
+        <yavi.version>0.5.0</yavi.version>
     </properties>
 
     <dependencies>
@@ -28,6 +30,22 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>am.ik.yavi</groupId>
+            <artifactId>yavi</artifactId>
+            <version>${yavi.version}</version>
         </dependency>
 
         <dependency>
